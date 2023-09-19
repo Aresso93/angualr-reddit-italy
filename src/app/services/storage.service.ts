@@ -1,29 +1,42 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../model/post';
+import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  favourites: Post[] = [];
+
+favouritesSubject = new BehaviorSubject<Post[]>([])
+//un subject è una variabile osservabile in RxJS
+  //favourites: Post[] = [];
 
   constructor() {
 
     if (localStorage.getItem('favourites')) {
-      this.favourites = JSON.parse(localStorage.getItem('favourites')!)
+      this.favouritesSubject.next(JSON.parse(localStorage.getItem('favourites')!))
     }
   }
 
   savePost(post: Post) {
-    this.favourites.push(post);
-    console.log(this.favourites)
-    localStorage.setItem('favourites', JSON.stringify(this.favourites));
+    post.isFavourite = true
+    //this.favourites.push(post);
+    //console.log(this.favourites)
+    const actualArray = this.favouritesSubject.value;
+    const newArray = [...actualArray, post]
+    this.favouritesSubject.next(newArray);
+    localStorage.setItem('favourites', JSON.stringify(newArray));
   }
 
   removePost(post: Post) {
-    this.favourites = this.favourites.filter((p) => p.id !== post.id);
-    console.log(this.favourites)
-    localStorage.setItem('favourites', JSON.stringify(this.favourites));
+    post.isFavourite = false
+    // this.favourites = this.favourites.filter((p) => p.id !== post.id);
+    // console.log(this.favourites)
+    // localStorage.setItem('favourites', JSON.stringify(this.favourites));
+    const actualArray = this.favouritesSubject.value;
+    const newArray = actualArray.filter((p) => p.id !== post.id)
+    this.favouritesSubject.next(newArray)
+    localStorage.setItem('favourites', JSON.stringify(newArray))
   }
 
   toggleFavourites(post: Post) {
@@ -37,8 +50,9 @@ export class StorageService {
 
 
   isFavourite(post: Post):boolean {
+    console.log('TATSUMAKI SENPUKYAKU');
+    return this.favouritesSubject.value.some(p => p.id===post.id)
 
-    return this.favourites.some(p => p.id===post.id)
 
 
   }

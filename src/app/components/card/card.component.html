@@ -1,0 +1,21 @@
+<div *ngIf="postData" [ngStyle]="{backgroundColor: bColor}" class="card">
+  <span *ngIf="isFavourite">🌟</span>
+  <img class="post-image" src="{{postData.thumbnail.includes('http')? postData.thumbnail : './assets/thumb.png'}}" alt="post thumbnail">
+  <div class="post-text">
+
+    <span>{{postData.title | titlecase}}</span>
+    <span>Postato da u/{{postData.author}}</span>
+    <span>{{postData.created | timestampToDate: true | uppercase}}</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="buttons-container">
+    <!-- <button (click)="storage.toggleFavourites(postData)">{{storage.isFavourite(postData)?'rimuovi':'salva'}}</button> -->
+    <button (click)="storage.toggleFavourites(postData)">{{postData.isFavourite?'rimuovi':'salva'}}</button>
+    <a href="{{postData.url}}">
+      <button>Vai al Link</button>
+    </a>
+    <a href="{{'https://www.reddit.com/'+postData.permalink}}">
+      <button>Vai al Reddit</button>
+    </a>
+  </div>
+</div>

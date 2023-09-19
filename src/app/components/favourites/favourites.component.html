@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let post of storage.favouritesSubject | async ">
+
+    <app-card [postData]="post" [isFavourite]="true" bColor="green"></app-card>
+
+  </li>
+</ul>
+

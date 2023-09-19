@@ -3,7 +3,7 @@
   <img class="post-image" src="{{postData.thumbnail.includes('http')? postData.thumbnail : './assets/thumb.png'}}" alt="post thumbnail">
   <div class="post-text">
 
-    <span>{{postData.title | titlecase}}</span>
+    <span>{{postData.title | bootlegTitleCase}}</span>
     <span>Postato da u/{{postData.author}}</span>
     <span>{{postData.created | timestampToDate: true | uppercase}}</span>
   </div>

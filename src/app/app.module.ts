@@ -12,7 +12,6 @@ import { CardComponent } from './components/card/card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FavouritesComponent } from './components/favourites/favourites.component';
 import { TimestampToDatePipe } from './pipes/timestamp-to-date.pipe';
-import { BootlegTitleCaseComponent } from './pipes/bootleg-title-case/bootleg-title-case.component';
 import { BootlegTitleCasePipe } from './pipes/bootleg-title-case.pipe';
 
 
@@ -25,7 +24,6 @@ import { BootlegTitleCasePipe } from './pipes/bootleg-title-case.pipe';
     CardComponent,
     FavouritesComponent,
     TimestampToDatePipe,
-    BootlegTitleCaseComponent,
     BootlegTitleCasePipe
   ],
   imports: [
